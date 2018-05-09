@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,12 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 public class PersonApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersonApplication.class, args);
+    }
+
+    public MeterRegistryCustomizer<MeterRegistry> commonTags() {
+        return r -> r.config().commonTags("application", "webinar");
     }
 }
 

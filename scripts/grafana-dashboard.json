@@ -57,7 +57,7 @@
   "gnetId": 4701,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1520895695317,
+  "iteration": 1525877374388,
   "links": [],
   "panels": [
     {
@@ -67,304 +67,6 @@
         "w": 24,
         "x": 0,
         "y": 0
-      },
-      "id": 126,
-      "panels": [],
-      "title": "Teams API",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "prometheus",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 1
-      },
-      "id": 120,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": true,
-      "targets": [
-        {
-          "expr": "rate(http_server_requests_seconds_count{uri=\"/teams\"}[10s])",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "5s",
-          "intervalFactor": 1,
-          "legendFormat": "teams",
-          "refId": "A"
-        },
-        {
-          "expr": "rate(http_server_requests_seconds_count{uri=\"/team/{name}\"}[10s])",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "5s",
-          "intervalFactor": 1,
-          "legendFormat": "team/name",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Teams API Throughput",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "throughput in requests/second",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "dateTimeFromNow",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "prometheus",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 1
-      },
-      "id": 132,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
-      "targets": [
-        {
-          "expr": "rate(http_server_requests_seconds_sum{uri=\"/teams\"}[10s])/rate(http_server_requests_seconds_count{uri=\"/teams\"}[10s])",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 1,
-          "legendFormat": "average",
-          "refId": "A"
-        },
-        {
-          "expr": "histogram_quantile(0.9, rate(http_server_requests_seconds_bucket{uri=\"/teams\"}[10s])) * 1000",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "90th percentile",
-          "refId": "B"
-        },
-        {
-          "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{uri=\"/teams\"}[10s])) * 1000",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "95th percentile",
-          "refId": "C"
-        },
-        {
-          "expr": "histogram_quantile(0.99, rate(http_server_requests_seconds_bucket{uri=\"/teams\"}[10s])) * 1000",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "99th percentile",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Teams Latency",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 4,
-          "format": "ms",
-          "label": "",
-          "logBase": 2,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "prometheus",
-      "fill": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 1
-      },
-      "id": 134,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
-      "targets": [
-        {
-          "expr": "rate(http_server_requests_seconds_bucket{uri=\"/teams\", le=\"0.005\"}[10s])",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "5ms requests",
-          "refId": "A"
-        },
-        {
-          "expr": "rate(http_server_requests_seconds_bucket{uri=\"/teams\", le=\"0.001\"}[10s])",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "1ms requests",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "teams SLAs",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 9
       },
       "id": 107,
       "panels": [],
@@ -397,7 +99,7 @@
         "h": 3,
         "w": 6,
         "x": 0,
-        "y": 10
+        "y": 1
       },
       "height": "",
       "id": 63,
@@ -437,7 +139,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "process_uptime_seconds{application=\"webinar\"}",
+          "expr": "process_uptime_seconds",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -485,7 +187,7 @@
         "h": 3,
         "w": 6,
         "x": 6,
-        "y": 10
+        "y": 1
       },
       "height": "",
       "id": 92,
@@ -525,8 +227,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "process_start_time_seconds{application=\"webinar\"}*1000",
+          "expr": "process_start_time_seconds{job=\"spring\"}*1000",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "metric": "",
@@ -573,7 +276,7 @@
         "h": 3,
         "w": 6,
         "x": 12,
-        "y": 10
+        "y": 1
       },
       "id": 65,
       "interval": null,
@@ -658,7 +361,7 @@
         "h": 3,
         "w": 6,
         "x": 18,
-        "y": 10
+        "y": 1
       },
       "id": 75,
       "interval": null,
@@ -734,7 +437,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 4
       },
       "id": 108,
       "panels": [],
@@ -763,7 +466,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 14
+        "y": 5
       },
       "id": 24,
       "legend": {
@@ -878,7 +581,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 14
+        "y": 5
       },
       "id": 25,
       "legend": {
@@ -994,7 +697,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 14
+        "y": 5
       },
       "id": 26,
       "legend": {
@@ -1160,7 +863,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 14
+        "y": 5
       },
       "id": 86,
       "legend": {
@@ -1245,7 +948,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 12
       },
       "id": 109,
       "panels": [],
@@ -1274,7 +977,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 22
+        "y": 13
       },
       "id": 106,
       "legend": {
@@ -1391,7 +1094,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 22
+        "y": 13
       },
       "id": 93,
       "legend": {
@@ -1504,7 +1207,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 22
+        "y": 13
       },
       "id": 32,
       "legend": {
@@ -1630,7 +1333,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 22
+        "y": 13
       },
       "id": 61,
       "legend": {
@@ -1759,7 +1462,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 20
       },
       "height": "",
       "id": 91,
@@ -1860,7 +1563,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 27
       },
       "id": 110,
       "panels": [],
@@ -1889,7 +1592,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 37
+        "y": 28
       },
       "id": 3,
       "legend": {
@@ -2001,7 +1704,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 35
       },
       "id": 111,
       "panels": [],
@@ -2030,7 +1733,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 45
+        "y": 36
       },
       "id": 78,
       "legend": {
@@ -2142,7 +1845,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 43
       },
       "id": 112,
       "panels": [],
@@ -2161,7 +1864,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 53
+        "y": 44
       },
       "id": 98,
       "legend": {
@@ -2250,7 +1953,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 53
+        "y": 44
       },
       "id": 101,
       "legend": {
@@ -2355,7 +2058,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 53
+        "y": 44
       },
       "id": 99,
       "legend": {
@@ -2437,7 +2140,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 60
+        "y": 51
       },
       "id": 113,
       "panels": [],
@@ -2466,7 +2169,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 52
       },
       "id": 37,
       "legend": {
@@ -2565,7 +2268,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 52
       },
       "id": 38,
       "legend": {
@@ -2668,7 +2371,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 68
+        "y": 59
       },
       "id": 114,
       "panels": [],
@@ -2697,7 +2400,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 69
+        "y": 60
       },
       "id": 33,
       "legend": {
@@ -2805,7 +2508,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 69
+        "y": 60
       },
       "id": 83,
       "legend": {
@@ -2905,7 +2608,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 69
+        "y": 60
       },
       "id": 85,
       "legend": {
@@ -3013,7 +2716,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 69
+        "y": 60
       },
       "id": 84,
       "legend": {
@@ -3220,5 +2923,5 @@
   "timezone": "browser",
   "title": "Spring Boot Micrometer",
   "uid": "2HVL3NRiz",
-  "version": 4
+  "version": 2
 }
