@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
   "__requires": [
     {
       "type": "grafana",
@@ -49,7 +39,7 @@
         "type": "dashboard"
       },
       {
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "prometheus",
         "enable": true,
         "expr": "resets(process_uptime_seconds[1m]) > 0",
         "iconColor": "rgba(255, 96, 96, 1)",
@@ -80,7 +70,7 @@
       },
       "id": 126,
       "panels": [],
-      "title": "Cities API",
+      "title": "Teams API",
       "type": "row"
     },
     {
@@ -88,7 +78,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "fill": 0,
       "gridPos": {
         "h": 8,
@@ -121,30 +111,30 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "rate(http_server_requests_seconds_count{uri=\"/cities\"}[10s])",
+          "expr": "rate(http_server_requests_seconds_count{uri=\"/teams\"}[10s])",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "5s",
           "intervalFactor": 1,
-          "legendFormat": "cities",
+          "legendFormat": "teams",
           "refId": "A"
         },
         {
-          "expr": "rate(http_server_requests_seconds_count{uri=\"/city/{name}\"}[10s])",
+          "expr": "rate(http_server_requests_seconds_count{uri=\"/team/{name}\"}[10s])",
           "format": "time_series",
           "hide": false,
           "instant": false,
           "interval": "5s",
           "intervalFactor": 1,
-          "legendFormat": "city/name",
+          "legendFormat": "team/name",
           "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Cities API Throughput",
+      "title": "Teams API Throughput",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -182,7 +172,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "fill": 0,
       "gridPos": {
         "h": 8,
@@ -214,7 +204,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "rate(http_server_requests_seconds_sum{uri=\"/cities\"}[10s])/rate(http_server_requests_seconds_count{uri=\"/cities\"}[10s])",
+          "expr": "rate(http_server_requests_seconds_sum{uri=\"/teams\"}[10s])/rate(http_server_requests_seconds_count{uri=\"/teams\"}[10s])",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -222,7 +212,7 @@
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.9, rate(http_server_requests_seconds_bucket{uri=\"/cities\"}[10s])) * 1000",
+          "expr": "histogram_quantile(0.9, rate(http_server_requests_seconds_bucket{uri=\"/teams\"}[10s])) * 1000",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -230,14 +220,14 @@
           "refId": "B"
         },
         {
-          "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{uri=\"/cities\"}[10s])) * 1000",
+          "expr": "histogram_quantile(0.95, rate(http_server_requests_seconds_bucket{uri=\"/teams\"}[10s])) * 1000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "95th percentile",
           "refId": "C"
         },
         {
-          "expr": "histogram_quantile(0.99, rate(http_server_requests_seconds_bucket{uri=\"/cities\"}[10s])) * 1000",
+          "expr": "histogram_quantile(0.99, rate(http_server_requests_seconds_bucket{uri=\"/teams\"}[10s])) * 1000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "99th percentile",
@@ -247,7 +237,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Cities Latency",
+      "title": "Teams Latency",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -286,7 +276,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "fill": 0,
       "gridPos": {
         "h": 8,
@@ -318,14 +308,14 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "rate(http_server_requests_seconds_bucket{uri=\"/cities\", le=\"0.005\"}[10s])",
+          "expr": "rate(http_server_requests_seconds_bucket{uri=\"/teams\", le=\"0.005\"}[10s])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "5ms requests",
           "refId": "A"
         },
         {
-          "expr": "rate(http_server_requests_seconds_bucket{uri=\"/cities\", le=\"0.001\"}[10s])",
+          "expr": "rate(http_server_requests_seconds_bucket{uri=\"/teams\", le=\"0.001\"}[10s])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "1ms requests",
@@ -335,7 +325,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Cities SLAs",
+      "title": "teams SLAs",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -391,7 +381,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "decimals": 1,
       "editable": true,
       "error": false,
@@ -479,7 +469,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "decimals": null,
       "editable": true,
       "error": false,
@@ -567,7 +557,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -652,7 +642,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -757,7 +747,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -872,7 +862,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -988,7 +978,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1154,7 +1144,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1268,7 +1258,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1385,7 +1375,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1498,7 +1488,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1624,7 +1614,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1753,7 +1743,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1883,7 +1873,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2024,7 +2014,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2165,7 +2155,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -2254,7 +2244,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -2359,7 +2349,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -2460,7 +2450,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2559,7 +2549,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2691,7 +2681,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2799,7 +2789,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2899,7 +2889,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -3007,7 +2997,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "prometheus",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -3112,7 +3102,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "prometheus",
         "hide": 0,
         "includeAll": false,
         "label": "Application",
@@ -3133,7 +3123,7 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "prometheus",
         "hide": 0,
         "includeAll": false,
         "label": "Instance",
@@ -3155,7 +3145,7 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "prometheus",
         "hide": 0,
         "includeAll": true,
         "label": "JVM Memory Pools Heap",
@@ -3177,7 +3167,7 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "prometheus",
         "hide": 0,
         "includeAll": true,
         "label": "JVM Memory Pools Non-Heap",

@@ -26,13 +26,12 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-webflux'
     compile 'io.micrometer:micrometer-registry-prometheus'
     compile 'io.micrometer:micrometer-registry-jmx'
 
     // just for artificial load test
     compile 'colt:colt:latest.release'
-    compile 'org.springframework:spring-webflux'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
