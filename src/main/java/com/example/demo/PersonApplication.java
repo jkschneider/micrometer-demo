@@ -6,6 +6,7 @@ import lombok.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.repository.Repository;
@@ -18,10 +19,6 @@ import reactor.core.publisher.Flux;
 public class PersonApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersonApplication.class, args);
-    }
-
-    public MeterRegistryCustomizer<MeterRegistry> commonTags() {
-        return r -> r.config().commonTags("application", "webinar");
     }
 }
 
