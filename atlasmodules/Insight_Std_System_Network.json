@@ -1,0 +1,65 @@
+{
+    "previewQuery": "",
+    "description": "View network usage.",
+    "categories": [
+        "insight",
+        "system",
+        "network"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "query": "name,(,ifInOctets,ifOutOctets,),:in,:max,(,name,),:by,8,:mul,$name,:legend",
+                    "ylabel": "bits/second",
+                    "title": "Interface Throughput",
+                    "l": 0
+                },
+                {
+                    "query": "name,(,tcpInSegs,tcpOutSegs,),:in,:max,(,name,),:by,$name,:legend",
+                    "ylabel": "segments/second",
+                    "title": "TCP Segments",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,tcpActiveOpens,:eq,:sum,Outgoing Connections,:legend,name,tcpPassiveOpens,:eq,:sum,Incoming Connections,:legend",
+                    "ylabel": "connections/second",
+                    "title": "Incoming and Outgoing Connections",
+                    "l": 0
+                },
+                {
+                    "query": "name,netstat.tcp_(?!max_states),:re,(,name,),:by,:stack,$name,:legend,:stat-max,0.001,:gt,:filter",
+                    "ylabel": "count",
+                    "title": "Connections by State",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,(,tcpRetransSegs,tcpInErrs,tcpOutRsts,tcpEstabResets,tcpAttemptFails,),:in,(,name,),:by,:stack,$name,:legend",
+                    "ylabel": "errors/second",
+                    "title": "TCP Errors",
+                    "l": 0
+                },
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,tcpRetransSegs,:eq,:sum,name,tcpOutSegs,:eq,:sum,:div,100,:mul,Percent Retransmitted,:legend",
+                    "l": 0,
+                    "title": "Percent Retransmitted Segments"
+                }
+            ]
+        }
+    ]
+}

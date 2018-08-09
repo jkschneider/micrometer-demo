@@ -1,0 +1,65 @@
+{
+    "previewQuery": "",
+    "description": "View network usage.",
+    "categories": [
+        "insight",
+        "system",
+        "network"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "query": "name,net.iface.bytes,:eq,:max,(,id,),:by,8,:mul,$id,:legend",
+                    "ylabel": "bits/second",
+                    "title": "Interface Throughput",
+                    "l": 0
+                },
+                {
+                    "query": "name,net.tcp.segments,:eq,:max,(,id,),:by,$id,:legend",
+                    "ylabel": "segments/second",
+                    "title": "TCP Segments",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,net.tcp.opens,:eq,:sum,(,id,),:by,$id,:legend",
+                    "ylabel": "connections/second",
+                    "title": "Incoming and Outgoing Connections",
+                    "l": 0
+                },
+                {
+                    "query": "name,net.tcp.connectionStates,:eq,(,id,),:by,:stack,$id,:legend,:stat-max,0.001,:gt,:filter",
+                    "ylabel": "count",
+                    "title": "Connections by State",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,net.tcp.errors,:eq,(,id,),:by,:stack,$id,:legend",
+                    "ylabel": "errors/second",
+                    "title": "TCP Errors",
+                    "l": 0
+                },
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,net.tcp.errors,:eq,id,retransSegs,:eq,:and,:sum,name,net.tcp.segments,:eq,id,out,:eq,:and,:sum,:div,100,:mul,Percent Retransmitted,:legend",
+                    "l": 0,
+                    "title": "Percent Retransmitted Segments"
+                }
+            ]
+        }
+    ]
+}

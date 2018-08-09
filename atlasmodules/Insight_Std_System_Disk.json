@@ -1,0 +1,65 @@
+{
+    "previewQuery": "",
+    "description": "View disk usage.",
+    "categories": [
+        "insight",
+        "system",
+        "disk"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "query": "name,vmstat.fh_allocated,:eq,:avg,(,name,),:by,$name,:legend",
+                    "ylabel": "count",
+                    "title": "File Descriptors (SNMP)",
+                    "l": 0
+                },
+                {
+                    "query": "name,(,maxFileDescriptorCount,openFileDescriptorCount,),:in,class,OperatingSystemMXBean,:eq,:and,:avg,(,name,),:by",
+                    "ylabel": "count",
+                    "title": "File Descriptors (JVM)",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,disk.percentused,:re,:max,(,name,),:by,$name,:legend",
+                    "l": 0,
+                    "title": "Disk Percent Used (SNMP)"
+                },
+                {
+                    "query": "name,diskio.5min.avgload,:re,:max,(,name,),:by,$name,:legend",
+                    "ylabel": "load",
+                    "title": "Disk Load (SNMP)",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,diskio.readbytes,:re,:avg,(,name,),:by,$name,:legend",
+                    "ylabel": "bytes/second",
+                    "title": "Disk Read Bytes (SNMP)",
+                    "l": 0
+                },
+                {
+                    "query": "name,diskio.writebytes,:re,:avg,(,name,),:by,$name,:legend",
+                    "ylabel": "bytes/second",
+                    "title": "Disk Write Bytes (SNMP)",
+                    "l": 0
+                }
+            ]
+        }
+    ]
+}

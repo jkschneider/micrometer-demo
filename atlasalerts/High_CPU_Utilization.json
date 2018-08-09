@@ -1,0 +1,20 @@
+{
+    "name": "High_CPU_Utilization",
+    "description": "Triggers when CPU utilization for the node is over chosen threshold",
+    "isPublic": true,
+    "metric": "name,systemCpuLoad,:eq,:max,(,nf.node,),:by",
+    "queryParams": {
+        "numTrue": 5,
+        "threshold": 80,
+        "window": 6
+    },
+    "category": "simple",
+    "metrics": [
+        "cgroup.cpu.processingTime",
+        "cgroup.cpu.processingCapacity"
+    ],
+    "owner": "insight-engineering@netflix.com",
+    "type": "resource",
+    "isInstance": true,
+    "isPercentage": true
+}

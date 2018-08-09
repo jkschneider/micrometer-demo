@@ -22,9 +22,13 @@ public class PersonApplication {
 @Data
 @Document
 class Person {
-    @NonNull @Id private String id;
-    @NonNull private String firstName;
-    @NonNull private String lastName;
+    @NonNull
+    @Id
+    private String id;
+    @NonNull
+    private String firstName;
+    @NonNull
+    private String lastName;
 }
 
 interface PersonRepository extends Repository<Person, String> {
@@ -35,7 +39,6 @@ interface PersonRepository extends Repository<Person, String> {
 
 @RestController
 class PersonController {
-
     private final PersonRepository repository;
 
     public PersonController(PersonRepository repository) {

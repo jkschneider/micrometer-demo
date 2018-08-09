@@ -1,0 +1,65 @@
+{
+    "previewQuery": "",
+    "description": "View CPU usage and loadavg. For more information see <a href=\"https://confluence.netflix.com/display/~brharrington/System+CPU+Metrics\">system cpu metrics</a>.",
+    "categories": [
+        "insight",
+        "system",
+        "cpu"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,CpuRaw(?!Idle),:re,:avg,(,name,),:by,name,numProcs,:eq,:avg,:div,$name,:legend,:stack",
+                    "l": 0,
+                    "title": "CPU Usage (SNMP)"
+                },
+                {
+                    "query": "name,ssCpuUtilization,:eq,:avg,(,nf.asg,),:by,$nf.asg,:legend",
+                    "ylabel": "percent",
+                    "title": "CPU Usage by ASG",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,loadavg(1|5|15),:re,:avg,(,name,),:by,100,:div,$name,:legend",
+                    "ylabel": "load",
+                    "title": "Load Average (SNMP)",
+                    "l": 0
+                },
+                {
+                    "query": "name,loadavg1,:eq,:avg,100,:div,(,nf.asg,),:by,$nf.asg,:legend",
+                    "ylabel": "load",
+                    "title": "Load Average by ASG",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,(,daemonThreadCount,threadCount,),:in,class,ThreadMXBean,:eq,:and,:max,(,name,),:by,$(name),:legend",
+                    "ylabel": "count",
+                    "title": "Thread Counts (JVM)",
+                    "l": 0
+                },
+                {
+                    "query": "name,threadCount,:eq,class,ThreadMXBean,:eq,:and,:max,(,state,),:by,$state,:legend,:stack",
+                    "ylabel": "count",
+                    "title": "Threads by State (JVM)",
+                    "l": 0
+                }
+            ]
+        }
+    ]
+}

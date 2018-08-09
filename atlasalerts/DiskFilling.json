@@ -1,0 +1,15 @@
+{
+    "name": "DiskFilling",
+    "description": "Is the Disk filling?",
+    "isPublic": true,
+    "metric": "nf.cluster,titusagent-mainvpc-m4.4xlarge.10,:eq,\nname,disk\\.percentused.*xvd.*,:re,:and,\n:max,\n(,nf.node,),:by,",
+    "queryParams": {
+        "numTrue": 10,
+        "threshold": 80,
+        "window": 15
+    },
+    "category": "",
+    "owner": "",
+    "type": "resource",
+    "isPercentage": false
+}

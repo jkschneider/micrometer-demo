@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.1.RELEASE'
+        springBootVersion = '2.0.4.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -23,19 +23,11 @@ repositories {
     mavenCentral()
 }
 
-dependencyManagement {
-    dependencies {
-        dependency 'io.micrometer:micrometer-registry-prometheus:1.0.4'
-        dependency 'io.micrometer:micrometer-registry-jmx:1.0.4'
-    }
-}
-
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'org.springframework.boot:spring-boot-starter-webflux'
 
     compile 'io.micrometer:micrometer-registry-prometheus'
-    compile 'io.micrometer:micrometer-registry-jmx'
 
     compile 'org.projectlombok:lombok:latest.release'
     compile 'commons-io:commons-io:latest.release'

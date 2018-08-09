@@ -1,0 +1,75 @@
+{
+    "previewQuery": "",
+    "description": "View Apache request stats.",
+    "categories": [
+        "insight",
+        "http",
+        "apache"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "query": "name,apache.http.request,:eq,status,(,2xx,3xx,),:in,:and,statistic,count,:eq,:and,(,status,),:by",
+                    "ylabel": "requests/second",
+                    "title": "Success Count",
+                    "l": 0
+                },
+                {
+                    "query": "name,apache.http.request,:eq,status,(,4xx,5xx,),:in,:and,statistic,count,:eq,:and,(,status,),:by",
+                    "ylabel": "requests/second",
+                    "title": "Error Count",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,apache.http.request,:eq,status,(,2xx,3xx,),:in,:and,statistic,count,:eq,:and,(,endpoint,),:by",
+                    "ylabel": "requests/second",
+                    "title": "Success by Endpoint",
+                    "l": 0
+                },
+                {
+                    "query": "name,apache.http.request,:eq,status,(,4xx,5xx,),:in,:and,statistic,count,:eq,:and,(,endpoint,),:by",
+                    "ylabel": "requests/second",
+                    "title": "Errors by Endpoint",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,apache.http.request,:eq,:dist-avg,(,endpoint,),:by,$endpoint,:legend",
+                    "ylabel": "seconds",
+                    "title": "Avg Latency by Endpoint",
+                    "l": 0
+                },
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "status,(,4xx,5xx,),:in,status,:has,:div,(,endpoint,),:by,100,:mul,$endpoint,:legend,name,apache.http.request,:eq,statistic,count,:eq,:and,:cq",
+                    "l": 0,
+                    "title": "Percent Errors"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,Scoreboard,:eq,class,ApacheStatusPoller,:eq,:and,:max,(,state,),:by,:stack",
+                    "ylabel": "count",
+                    "title": "Worker States",
+                    "l": 0
+                }
+            ]
+        }
+    ]
+}

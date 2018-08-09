@@ -1,0 +1,16 @@
+{
+    "name": "Endpoint_Errors",
+    "description": "Percentage of failed requests exceeded threshold.",
+    "isPublic": true,
+    "metric": "name,grpc.server.call,:eq,status,OK,:eq,:not,:and,statistic,count,:eq,:and,:sum,name,grpc.server.call,:eq,statistic,count,:eq,:and,:sum,:div,(,nf.node,),:by",
+    "queryParams": {
+        "numTrue": 4,
+        "threshold": 1,
+        "window": 15
+    },
+    "category": "",
+    "owner": "dduke@netflix.com",
+    "type": "error",
+    "isInstance": false,
+    "isPercentage": true
+}

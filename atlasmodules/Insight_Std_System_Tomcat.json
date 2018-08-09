@@ -1,0 +1,81 @@
+{
+    "previewQuery": "",
+    "description": "View Tomcat request stats. For more information see <a href=\"https://confluence.netflix.com/display/~brharrington/Tomcat+Metrics\">tomcat metrics</a>.",
+    "categories": [
+        "insight",
+        "http",
+        "tomcat"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "query": "name,tomcat.requestCount,:eq,(,id,),:by,$id,:legend",
+                    "ylabel": "requests/second",
+                    "title": "Overall Request Count",
+                    "l": 0
+                },
+                {
+                    "query": "name,tomcat.errorCount,:eq,(,id,),:by,$id,:legend",
+                    "ylabel": "requests/second",
+                    "title": "Overall Error Count",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,tomcat.requestCount,:eq,:max,(,id,),:by,$id,:legend",
+                    "ylabel": "requests/second",
+                    "title": "Node Request Count",
+                    "l": 0
+                },
+                {
+                    "query": "name,tomcat.errorCount,:eq,:max,(,id,),:by,$id,:legend",
+                    "ylabel": "requests/second",
+                    "title": "Node Error Count",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,tomcat.currentThreadsBusy,:eq,:max,(,id,),:by,$id,:legend",
+                    "ylabel": "count",
+                    "title": "Node Busy Threads Count",
+                    "l": 0
+                },
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,tomcat.currentThreadsBusy,:eq,:max,name,tomcat.currentThreadCount,:eq,:max,:div,100,:mul,(,id,),:by,$id,:legend",
+                    "l": 0,
+                    "title": "Node Busy Threads Percent"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,tomcat.bytesSent,:eq,:max,(,id,),:by,8,:mul,$id,:legend",
+                    "ylabel": "bits/second",
+                    "title": "Node Output",
+                    "l": 0
+                },
+                {
+                    "query": "name,tomcat.processingTime,:eq,name,tomcat.requestCount,:eq,:div,(,id,),:by,1000,:div,$id,:legend",
+                    "ylabel": "seconds",
+                    "title": "Average Processing Time",
+                    "l": 0
+                }
+            ]
+        }
+    ]
+}

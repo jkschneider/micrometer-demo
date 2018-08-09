@@ -1,0 +1,66 @@
+{
+    "previewQuery": "",
+    "description": "View JVM garbage collection stats reported by Spectator.",
+    "categories": [
+        "insight",
+        "java",
+        "gc"
+    ],
+    "owner": "brharrington@netflix.com",
+    "script": true,
+    "layout": {
+        "numCols": 2
+    },
+    "rows": [
+        {
+            "cells": [
+                {
+                    "query": "name,jvm.gc.allocationRate,:eq,:max,max Allocation Rate,:legend,name,jvm.gc.promotionRate,:eq,:max,max Promotion Rate,:legend",
+                    "ylabel": "bytes/second",
+                    "title": "Allocation/Promotion Rate",
+                    "l": 0
+                },
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,jvm.gc.pause,:eq,statistic,totalTime,:eq,:and,:avg,(,cause,),:by,100,:mul,:stack,$cause,:legend",
+                    "l": 0,
+                    "title": "Time Spent in GC by Cause"
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,jvm.gc.pause,:eq,:dist-avg,(,action,),:by,$action,:legend",
+                    "ylabel": "seconds",
+                    "title": "Avg GC Pause Time",
+                    "l": 0
+                },
+                {
+                    "query": "name,jvm.gc.pause,:eq,statistic,max,:eq,:and,:max,(,cause,),:by",
+                    "ylabel": "seconds",
+                    "title": "Max GC Pause Time by Cause",
+                    "l": 0
+                }
+            ]
+        },
+        {
+            "cells": [
+                {
+                    "query": "name,(,jvm.gc.liveDataSize,jvm.gc.maxDataSize,),:in,:max,(,name,),:by",
+                    "ylabel": "bytes",
+                    "title": "Live Data Size",
+                    "l": 0
+                },
+                {
+                    "ylabel": "percent",
+                    "u": 100,
+                    "query": "name,jvm.gc.liveDataSize,:eq,:max,name,jvm.gc.maxDataSize,:eq,:max,:div,100,:mul,usage,:legend",
+                    "l": 0,
+                    "title": "Live Data Percent Usage: Max"
+                }
+            ]
+        }
+    ]
+}
