@@ -1,4 +1,4 @@
-## Micrometer Webinar
+## STL JUG - Micrometer
 
 This is the demo repository used during a STL JUG presentation on Project Micrometer on August 9, 2018.
 
