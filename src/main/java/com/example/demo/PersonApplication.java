@@ -1,9 +1,12 @@
 package com.example.demo;
 
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.config.MeterFilter;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.repository.Repository;
@@ -16,6 +19,11 @@ import reactor.core.publisher.Flux;
 public class PersonApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersonApplication.class, args);
+    }
+
+    @Bean
+    public MeterFilter limit() {
+        return MeterFilter.maximumAllowableTags("bad.boy", ..);
     }
 }
 
