@@ -16,7 +16,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
   "links": [],
   "panels": [
     {
@@ -25,7 +24,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "prometheus",
-      "fill": 0,
+      "fill": 5,
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -56,6 +55,7 @@
       "steppedLine": true,
       "targets": [
         {
+          "$$hashKey": "object:201",
           "expr": "avg(jvm_memory_used_bytes) by (instance, id)",
           "format": "time_series",
           "intervalFactor": 1,
@@ -297,12 +297,20 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:851",
+          "alias": "promotion/allocation ratio",
+          "dashes": true,
+          "yaxis": 2
+        }
+      ],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": true,
       "targets": [
         {
+          "$$hashKey": "object:409",
           "expr": "rate(jvm_gc_memory_allocated_bytes_total[1m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -310,11 +318,20 @@
           "refId": "A"
         },
         {
+          "$$hashKey": "object:410",
           "expr": "rate(jvm_gc_memory_promoted_bytes_total[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "promotion rate",
           "refId": "B"
+        },
+        {
+          "$$hashKey": "object:453",
+          "expr": "rate(jvm_gc_memory_promoted_bytes_total[1m])/rate(jvm_gc_memory_allocated_bytes_total[1m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "promotion/allocation ratio",
+          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -336,6 +353,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:481",
           "format": "decbytes",
           "label": null,
           "logBase": 1,
@@ -344,7 +362,8 @@
           "show": true
         },
         {
-          "format": "short",
+          "$$hashKey": "object:482",
+          "format": "percentunit",
           "label": null,
           "logBase": 1,
           "max": null,

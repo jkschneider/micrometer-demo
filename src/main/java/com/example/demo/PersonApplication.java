@@ -1,10 +1,10 @@
 package com.example.demo;
 
-import io.micrometer.core.instrument.Tags;
-import io.micrometer.core.instrument.config.MeterFilter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
@@ -15,15 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
+import java.util.Random;
+
 @SpringBootApplication
 public class PersonApplication {
     public static void main(String[] args) {
         SpringApplication.run(PersonApplication.class, args);
-    }
-
-    @Bean
-    public MeterFilter limit() {
-        return MeterFilter.maximumAllowableTags("bad.boy", ..);
     }
 }
 
@@ -37,6 +34,11 @@ class Person {
     private String firstName;
     @NonNull
     private String lastName;
+
+    @Bean
+    public MeterRegistryCustomizer<MeterRegistry> commonTags() {
+        return r -> r.config().commonTags("host", "ecomwassrv1");
+    }
 }
 
 interface PersonRepository extends Repository<Person, String> {
@@ -48,6 +50,7 @@ interface PersonRepository extends Repository<Person, String> {
 @RestController
 class PersonController {
     private final PersonRepository repository;
+    private final Random r = new Random();
 
     public PersonController(PersonRepository repository) {
         this.repository = repository;
@@ -55,6 +58,9 @@ class PersonController {
 
     @GetMapping(path = "/persons")
     public Flux<Person> all() {
+        if((r.nextGaussian() + 1) / 2 < 0.01) {
+            throw new RuntimeException("random failure");
+        }
         return this.repository.findAll();
     }
 
